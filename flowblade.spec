@@ -1,14 +1,16 @@
-# https://github.com/jliljebl/flowblade/commit/fd577a9fac7400d178e63839d53c77a5e8565486
-%global commit0  fd577a9fac7400d178e63839d53c77a5e8565486
+#globals for flowblade-1.12.2-20170325-e156175.tar.xz
+%global gitdate 20170325
+%global commit0 e156175a14479e2f550ed19195d3b1a0ac0d7797
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gver .%{gitdate}git%{shortcommit0}
 
 Name:           flowblade
-Version:        1.12.0
-Release:        1.git%{shortcommit0}%{?dist}
+Version:        1.12.2
+Release:	2%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
-Source0:        https://github.com/jliljebl/flowblade/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar.gz
+Source0:	https://github.com/jliljebl/flowblade/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Patch0:         flowblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
@@ -52,9 +54,10 @@ parts of clips.
 Flowblade provides powerful tools to mix and filter video and audio. 
 
 %prep
-%setup -qn %{name}-%{commit0}/flowblade-trunk
-# fix to  /usr/bin/flowblade
-%patch0 -p1
+%autosetup -n %{name}-%{commit0}/%{name}-trunk -p1
+
+# patching flowblade, and avoid message 'small screen'
+sed -i 's/1151/1024/g' Flowblade/app.py
 
 # fix wrong-script-interpreter errors
 sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/launch/*
@@ -111,6 +114,13 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+
+* Sat Mar 25 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.12.2-2-20170325gite156175
+- Updated to 1.12.2-2-20170325gite156175
+
+* Fri Mar 24 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.12.0-1.gitfd577a9
+- Update to 1.12.0-1.gitfd577a9
+
 * Fri Mar 24 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.12.0-1.gitfd577a9
 - Update to 1.12.0-1.gitfd577a9
 
