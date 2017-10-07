@@ -1,11 +1,9 @@
-#globals for flowblade-1.12.2-20170325-e156175.tar.xz
-%global gitdate 20170325
-%global commit0 e156175a14479e2f550ed19195d3b1a0ac0d7797
+%global commit0 b2b5f5712d9762c4e24cdb47b47c0d1254891bb5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gver .%{gitdate}git%{shortcommit0}
+%global gver .git%{shortcommit0}
 
 Name:           flowblade
-Version:        1.12.2
+Version:        1.14
 Release:	2%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -115,7 +113,10 @@ fi
 
 %changelog
 
-* Sat Mar 25 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.12.2-2-20170325gite156175
+* Fri Oct 06 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.14-2.gitb2b5f57
+- Updated to 1.14-2.gitb2b5f57
+
+* Sat Mar 25 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.12.2-2.gite156175
 - Updated to 1.12.2-2-20170325gite156175
 
 * Fri Mar 24 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.12.0-1.gitfd577a9
