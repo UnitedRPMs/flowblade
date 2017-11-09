@@ -113,7 +113,7 @@ fi
 
 %changelog
 
-* Wed Nov 09 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.14-3.gitcad77b5
+* Wed Nov 08 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.14-3.gitcad77b5
 - Updated to 1.14-3.gitcad77b5
 
 * Fri Oct 06 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.14-2.gitb2b5f57
