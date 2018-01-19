@@ -1,10 +1,10 @@
-%global commit0 cad77b5cc7a2afdc86dff3a8dd90f34555da5062
+%global commit0 ccda303a95e8c6206c55b33fc987b82a53228f5b
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
 Version:        1.14
-Release:	3%{?gver}%{?dist}
+Release:	4%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -113,13 +113,16 @@ fi
 
 %changelog
 
-* Wed Nov 08 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.14-3.gitcad77b5
+* Fri Jan 19 2018 David Vasquez <davidva AT tutanota DOT com> - 1.14-4.gitccda303
+- Updated to 1.14-4.gitccda303
+
+* Wed Nov 08 2017 David Vasquez <davidjeremias82 AT gmail DOT com> - 1.14-3.gitcad77b5
 - Updated to 1.14-3.gitcad77b5
 
-* Fri Oct 06 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.14-2.gitb2b5f57
+* Fri Oct 06 2017 David Vasquez <davidjeremias82 AT gmail DOT com> - 1.14-2.gitb2b5f57
 - Updated to 1.14-2.gitb2b5f57
 
-* Sat Mar 25 2017 David Vásquez <davidjeremias82 AT gmail DOT com> - 1.12.2-2.gite156175
+* Sat Mar 25 2017 David Vasquez <davidjeremias82 AT gmail DOT com> - 1.12.2-2.gite156175
 - Updated to 1.12.2-2-20170325gite156175
 
 * Fri Mar 24 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.12.0-1.gitfd577a9
@@ -198,12 +201,12 @@ fi
 * Fri Jun 19 2015 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-1.git94f69ce
 - Update to 1.1.0
 
-* Fri Mar 20 2015 David Vásquez <davidjeremias82 AT gmail DOT com> - 0.18.0-1
+* Fri Mar 20 2015 David Vasquez <davidjeremias82 AT gmail DOT com> - 0.18.0-1
 - Updated to 0.18.0
 
-* Sat Jul 05 2014 David Vásquez <davidjeremias82@ dat com> 0.12.0-1
+* Sat Jul 05 2014 David Vasquez <davidjeremias82@ dat com> 0.12.0-1
 - Updated to 0.12.0
 
-* Thu Oct 24 2013 David Vásquez <davidjeremias82@ dat com> 0.10.0-1
+* Thu Oct 24 2013 David Vasquez <davidjeremias82@ dat com> 0.10.0-1
 - Initial build rpm Fedora
 
