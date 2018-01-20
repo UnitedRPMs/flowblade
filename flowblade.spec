@@ -70,7 +70,7 @@ sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
 %py2_install 
 
 # fix permissions
-chmod +x %{buildroot}%{python_sitelib}/Flowblade/launch/*
+chmod a+x %{buildroot}/%{python2_sitelib}/Flowblade/launch/*
 
 # setup of mime is already done, so for what we need this file ?
 %{__rm} %{buildroot}/usr/lib/mime/packages/flowblade
@@ -109,7 +109,7 @@ fi
 %{_datadir}/mime/
 %{_datadir}/pixmaps/flowblade.png
 %{python2_sitelib}/Flowblade/
-%{python2_sitelib}/flowblade*
+%{python2_sitelib}/flowblade*.egg-info
 
 %changelog
 
