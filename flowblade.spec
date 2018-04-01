@@ -1,10 +1,10 @@
-%global commit0 ccda303a95e8c6206c55b33fc987b82a53228f5b
+%global commit0 dd4e1901af8454b9779d9f9522bd922f12820656
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
-Version:        1.14
-Release:	4%{?gver}%{?dist}
+Version:        1.16
+Release:	2%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -112,6 +112,9 @@ fi
 %{python2_sitelib}/flowblade*.egg-info
 
 %changelog
+
+* Sun Apr 01 2018 David Vasquez <davidva AT tutanota DOT com> - 1.16-2.gitdd4e190
+- Updated to 1.16-2.gitdd4e190
 
 * Fri Jan 19 2018 David Vasquez <davidva AT tutanota DOT com> - 1.14-4.gitccda303
 - Updated to 1.14-4.gitccda303
