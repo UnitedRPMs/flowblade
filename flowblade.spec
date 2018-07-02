@@ -1,4 +1,4 @@
-%global commit0 dd4e1901af8454b9779d9f9522bd922f12820656
+%global commit0 3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -81,6 +81,10 @@ for i in $(ls -d %{buildroot}%{python_sitelib}/Flowblade/locale/*/LC_MESSAGES/ |
     mv %{buildroot}%{python_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
         %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
 done
+
+# fix css directory missed
+mv -f Flowblade/res/css %{buildroot}/%{python2_sitelib}/Flowblade/res/
+
 %find_lang %{name}
 
 %check
@@ -107,11 +111,15 @@ fi
 %{_datadir}/applications/flowblade.desktop
 %{_mandir}/man1/flowblade.1.*
 %{_datadir}/mime/
-%{_datadir}/pixmaps/flowblade.png
+%{_datadir}/appdata/flowblade.appdata.xml
+%{_datadir}/icons/hicolor/128x128/apps/flowblade.png
 %{python2_sitelib}/Flowblade/
 %{python2_sitelib}/flowblade*.egg-info
 
 %changelog
+
+* Sat Jun 30 2018 David Vasquez <davidva AT tutanota DOT com> - 1.16-3.git3fdb76d
+- Updated to 1.16-3.git3fdb76d
 
 * Sun Apr 01 2018 David Vasquez <davidva AT tutanota DOT com> - 1.16-2.gitdd4e190
 - Updated to 1.16-2.gitdd4e190
