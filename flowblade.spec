@@ -1,10 +1,10 @@
-%global commit0 3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
+%global commit0 4c25c3cf784c30532eebe082d7fed881f2905cb5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
 Version:        1.16
-Release:	2%{?gver}%{?dist}
+Release:	4%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -117,6 +117,10 @@ fi
 %{python2_sitelib}/flowblade*.egg-info
 
 %changelog
+
+* Wed Jul 11 2018 David Vasquez <davidva AT tutanota DOT com> - 1.16-4.git4c25c3c
+- Updated to Current commit
+- Fix crash by banning Qt producers to keep using Gtk producers after Qimage
 
 * Sat Jun 30 2018 David Vasquez <davidva AT tutanota DOT com> - 1.16-3.git3fdb76d
 - Updated to 1.16-3.git3fdb76d
