@@ -76,9 +76,9 @@ chmod a+x %{buildroot}/%{python2_sitelib}/Flowblade/launch/*
 %{__rm} %{buildroot}/usr/lib/mime/packages/flowblade
 
 # move .mo files to /usr/share/locale the right place
-for i in $(ls -d %{buildroot}%{python_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
+for i in $(ls -d %{buildroot}%{python2_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
     mkdir -p %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
-    mv %{buildroot}%{python_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
+    mv %{buildroot}%{python2_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
         %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
 done
 
