@@ -1,7 +1,7 @@
---- ./flowblade	2015-06-16 22:25:18.000000000 +0100
-+++ ./flowblade	2015-06-21 06:58:24.782414252 +0100
-@@ -34,13 +34,14 @@ print "Launch script dir:", launch_dir
- # Update sys.path to include modules
+--- a/flowblade-trunk/flowblade	2019-02-04 03:29:07.000000000 -0600
++++ b/flowblade-trunk/flowblade-new	2019-02-04 15:36:04.941291000 -0600
+@@ -36,10 +36,10 @@
+ # When running on distro
  if launch_dir == "/usr/bin":
      print "Running from installation..."
 -    modules_path = "/usr/share/flowblade/Flowblade"
@@ -10,10 +10,14 @@
      if not os.path.isdir(modules_path):
          modules_path = "/usr/share/pyshared/Flowblade"
 -    print "modules path:", modules_path
+ # When running in flatpak
+ elif launch_dir == "/app/bin":
+     print "Running from installation..."
+@@ -51,6 +51,7 @@
  else:
      print "Running from filesystem..."
      modules_path = launch_dir + "/Flowblade"
 +print "modules path:", modules_path
  
  sys.path.insert(0, modules_path)
- sys.path.insert(0, modules_path + "/vieweditor")
+ 

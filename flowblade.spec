@@ -1,19 +1,21 @@
-%global commit0 4c25c3cf784c30532eebe082d7fed881f2905cb5
+%global commit0 aa923b5f07e7b5149a5a69137c76052c7beecdb7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
+%global _python_bytecompile_extra 1
 
 Name:           flowblade
-Version:        1.16
-Release:	4%{?gver}%{?dist}
+Version:        2.0
+Release:	7%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
 Source0:	https://github.com/jliljebl/flowblade/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Patch0:         flowblade-001_sys_path.patch
+Patch0:       	wblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
+BuildRequires:	gettext
 Requires:       ffmpeg
 Requires:       mlt-python
 Requires:       frei0r-plugins >= 1.4
@@ -52,8 +54,9 @@ parts of clips.
 Flowblade provides powerful tools to mix and filter video and audio. 
 
 %prep
-%autosetup -n %{name}-%{commit0}/%{name}-trunk -p1
-
+%setup -n %{name}-%{commit0} 
+%patch0 -p1
+pushd flowblade-trunk
 # patching flowblade, and avoid message 'small screen'
 sed -i 's/1151/1024/g' Flowblade/app.py
 
@@ -62,18 +65,22 @@ sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/launch/*
 
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
+popd
 
 %build 
+pushd flowblade-trunk
 %py2_build
+popd
 
 %install 
+pushd flowblade-trunk
 %py2_install 
 
 # fix permissions
-chmod a+x %{buildroot}/%{python2_sitelib}/Flowblade/launch/*
+chmod +x %{buildroot}%{python2_sitelib}/Flowblade/launch/*
 
 # setup of mime is already done, so for what we need this file ?
-%{__rm} %{buildroot}/usr/lib/mime/packages/flowblade
+rm %{buildroot}/usr/lib/mime/packages/flowblade
 
 # move .mo files to /usr/share/locale the right place
 for i in $(ls -d %{buildroot}%{python2_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
@@ -82,13 +89,18 @@ for i in $(ls -d %{buildroot}%{python2_sitelib}/Flowblade/locale/*/LC_MESSAGES/ 
         %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
 done
 
-# fix css directory missed
-mv -f Flowblade/res/css %{buildroot}/%{python2_sitelib}/Flowblade/res/
+# E: non-executable-script
+chmod a+x %{buildroot}%{python2_sitelib}/Flowblade/tools/clapperless.py
+
+install -d -m 0755 %{buildroot}%{python2_sitelib}/Flowblade/res/css
+cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python2_sitelib}/Flowblade/res/css
+
+popd
 
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.jliljebl.Flowblade.desktop
 
 %post
 /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
@@ -105,18 +117,22 @@ fi
 
 
 %files -f %{name}.lang
-%doc README
-%license COPYING
+%doc flowblade-trunk/README
+%license flowblade-trunk/COPYING
 %{_bindir}/flowblade
-%{_datadir}/applications/flowblade.desktop
+%{_datadir}/applications/io.github.jliljebl.Flowblade.desktop
 %{_mandir}/man1/flowblade.1.*
 %{_datadir}/mime/
-%{_datadir}/appdata/flowblade.appdata.xml
-%{_datadir}/icons/hicolor/128x128/apps/flowblade.png
+%{_datadir}/appdata/io.github.jliljebl.Flowblade.appdata.xml
+%{_datadir}/icons/hicolor/128x128/apps/io.github.jliljebl.Flowblade.png
 %{python2_sitelib}/Flowblade/
 %{python2_sitelib}/flowblade*.egg-info
 
+
 %changelog
+
+* Mon Feb 04 2019 David Vasquez <davidva AT tutanota DOT com> - 2.0-7.gitaa923b5
+- Updated to 2.0
 
 * Wed Jul 11 2018 David Vasquez <davidva AT tutanota DOT com> - 1.16-4.git4c25c3c
 - Updated to Current commit
