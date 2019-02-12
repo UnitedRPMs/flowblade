@@ -1,7 +1,6 @@
 %global commit0 aa923b5f07e7b5149a5a69137c76052c7beecdb7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
-%global _python_bytecompile_extra 1
 
 Name:           flowblade
 Version:        2.0
@@ -98,6 +97,11 @@ cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python2_sitelib}/Flowb
 popd
 
 %find_lang %{name}
+
+sed -i 's|/usr/bin/env python|/usr/bin/python2|g' %{buildroot}/%{python2_sitelib}/Flowblade/tools/clapperless.py
+sed -i 's|/bin/bash|/usr/bin/bash|g' %{buildroot}/%{python2_sitelib}/Flowblade/launch/natron_render.sh
+sed -i 's|/usr/bin/env bash|/usr/bin/bash|g' %{buildroot}/%{python2_sitelib}/Flowblade/launch/flowbladephantom
+sed -i 's|/bin/bash|/usr/bin/bash|g' %{buildroot}/%{python2_sitelib}/Flowblade/launch/natron_clip_export_start.sh
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.jliljebl.Flowblade.desktop
