@@ -3,4 +3,6 @@ BUILDROOT/*
 RPMS/*
 SPECS/*
 SRPMS/*
-flowblade*.tar.gz
+*.tar.gz
+*.rpm
+.directory

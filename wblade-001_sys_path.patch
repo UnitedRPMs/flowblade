@@ -1,8 +1,9 @@
---- a/flowblade-trunk/flowblade	2019-02-04 03:29:07.000000000 -0600
-+++ b/flowblade-trunk/flowblade-new	2019-02-04 15:36:04.941291000 -0600
+diff -ruN orig/flowblade-trunk/flowblade new/flowblade-trunk/flowblade
+--- orig/flowblade-trunk/flowblade	2019-08-26 01:46:04.000000000 -0600
++++ new/flowblade-trunk/flowblade	2019-08-30 00:01:35.083152785 -0600
 @@ -36,10 +36,10 @@
  # When running on distro
- if launch_dir == "/usr/bin":
+ if launch_dir in {"bin", "/usr/bin", "/usr/local/bin"}:
      print "Running from installation..."
 -    modules_path = "/usr/share/flowblade/Flowblade"
 +    from distutils.sysconfig import get_python_lib
@@ -12,7 +13,7 @@
 -    print "modules path:", modules_path
  # When running in flatpak
  elif launch_dir == "/app/bin":
-     print "Running from installation..."
+     print "Running from Flatpak installation..."
 @@ -51,6 +51,7 @@
  else:
      print "Running from filesystem..."
