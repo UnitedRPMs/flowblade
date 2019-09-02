@@ -4,7 +4,7 @@
 
 Name:           flowblade
 Version:        2.2
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -24,7 +24,7 @@ Requires:       ladspa-swh-plugins
 Requires:       ladspa-calf-plugins
 Requires:       librsvg2
 Requires:       python-dbus
-Requires:       python-gobject
+Requires:       python2-gobject
 %if 0%{?fedora} >= 24
 Requires:       python2-numpy
 Requires:       python2-pillow
@@ -132,6 +132,9 @@ fi
 
 
 %changelog
+
+* Sun Sep 01 2019 David Vasquez <davidva AT tutanota DOT com> - 2.2-8.git9aee5f2
+- Drop python-gobject for python2-gobject
 
 * Thu Aug 29 2019 David Vasquez <davidva AT tutanota DOT com> - 2.2-7.git9aee5f2
 - Updated to 2.2
