@@ -1,10 +1,10 @@
-%global commit0 9aee5f25f35bcaf3f9eb28c8bfc64061734358ba
+%global commit0 cfb302b5997409fabbf2baa24f214265f2db4ef7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
 Version:        2.2
-Release:	8%{?gver}%{?dist}
+Release:	9%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -12,26 +12,21 @@ Source0:	https://github.com/jliljebl/flowblade/archive/%{commit0}.tar.gz#/%{name
 Patch0:       	wblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:	gettext
 Requires:       ffmpeg
-Requires:       mlt-python
+Requires:       python3-mlt
 Requires:       frei0r-plugins >= 1.4
 Requires:       gmic
 Requires:       gtk3
 Requires:       ladspa-swh-plugins
 Requires:       ladspa-calf-plugins
 Requires:       librsvg2
-Requires:       python-dbus
-Requires:       python2-gobject
-%if 0%{?fedora} >= 24
-Requires:       python2-numpy
-Requires:       python2-pillow
-%else
-Requires:       numpy
-Requires:       python-pillow
-%endif
+Requires:       python3-dbus
+Requires:       python3-gobject
+Requires:       python3-numpy
+Requires:       python3-pillow
 %if 0%{?fedora} >= 25
 Requires:       mlt-freeworld
 %endif
@@ -60,7 +55,7 @@ pushd flowblade-trunk
 sed -i 's/1151/1024/g' Flowblade/app.py
 
 # fix wrong-script-interpreter errors
-sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/launch/*
+sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python3@g' Flowblade/launch/*
 
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
@@ -68,38 +63,38 @@ popd
 
 %build 
 pushd flowblade-trunk
-%py2_build
+%py3_build
 popd
 
 %install 
 pushd flowblade-trunk
-%py2_install 
+%py3_install 
 
 # fix permissions
-chmod +x %{buildroot}%{python2_sitelib}/Flowblade/launch/*
+chmod +x %{buildroot}%{python3_sitelib}/Flowblade/launch/*
 
 # setup of mime is already done, so for what we need this file ?
 rm %{buildroot}/usr/lib/mime/packages/flowblade
 
 # move .mo files to /usr/share/locale the right place
-for i in $(ls -d %{buildroot}%{python2_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
+for i in $(ls -d %{buildroot}%{python3_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
     mkdir -p %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
-    mv %{buildroot}%{python2_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
+    mv %{buildroot}%{python3_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
         %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
 done
 
 # E: non-executable-script
-chmod a+x %{buildroot}%{python2_sitelib}/Flowblade/tools/clapperless.py
+chmod a+x %{buildroot}%{python3_sitelib}/Flowblade/tools/clapperless.py
 
-install -d -m 0755 %{buildroot}%{python2_sitelib}/Flowblade/res/css
-cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python2_sitelib}/Flowblade/res/css
+install -d -m 0755 %{buildroot}%{python3_sitelib}/Flowblade/res/css
+cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python3_sitelib}/Flowblade/res/css
 
 popd
 
 %find_lang %{name}
 
-sed -i 's|/usr/bin/env python|/usr/bin/python2|g' %{buildroot}/%{python2_sitelib}/Flowblade/tools/clapperless.py
-sed -i 's|/usr/bin/env bash|/usr/bin/bash|g' %{buildroot}/%{python2_sitelib}/Flowblade/launch/flowbladephantom
+sed -i 's|/usr/bin/env python|/usr/bin/python3|g' %{buildroot}/%{python3_sitelib}/Flowblade/tools/clapperless.py
+sed -i 's|/usr/bin/env bash|/usr/bin/bash|g' %{buildroot}/%{python3_sitelib}/Flowblade/launch/flowbladephantom
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.jliljebl.Flowblade.desktop
@@ -127,11 +122,14 @@ fi
 %{_datadir}/mime/
 %{_datadir}/appdata/io.github.jliljebl.Flowblade.appdata.xml
 %{_datadir}/icons/hicolor/128x128/apps/io.github.jliljebl.Flowblade.png
-%{python2_sitelib}/Flowblade/
-%{python2_sitelib}/flowblade*.egg-info
+%{python3_sitelib}/Flowblade/
+%{python3_sitelib}/flowblade*.egg-info
 
 
 %changelog
+
+* Sat Oct 19 2019 David Vasquez <davidva AT tutanota DOT com> - 2.2-9.gitcfb302b
+- Migrated to python3
 
 * Sun Sep 01 2019 David Vasquez <davidva AT tutanota DOT com> - 2.2-8.git9aee5f2
 - Drop python-gobject for python2-gobject
