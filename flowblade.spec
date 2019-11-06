@@ -1,15 +1,14 @@
-%global commit0 cfb302b5997409fabbf2baa24f214265f2db4ef7
+%global commit0 176ca0f34824bb0de8ab38f5fe1852617d7eaa44
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
 Version:        2.2
-Release:	9%{?gver}%{?dist}
+Release:	10%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
 Source0:	https://github.com/jliljebl/flowblade/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Patch0:       	wblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
@@ -49,7 +48,7 @@ Flowblade provides powerful tools to mix and filter video and audio.
 
 %prep
 %setup -n %{name}-%{commit0} 
-%patch0 -p1
+#patch0 -p1
 pushd flowblade-trunk
 # patching flowblade, and avoid message 'small screen'
 sed -i 's/1151/1024/g' Flowblade/app.py
@@ -60,6 +59,9 @@ sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python3@g' Flowblade/launch/*
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
 popd
+
+# Fix modules path
+sed -i "s|/usr/share/flowblade/Flowblade|%{python3_sitelib}/Flowblade|g" flowblade
 
 %build 
 pushd flowblade-trunk
@@ -127,6 +129,9 @@ fi
 
 
 %changelog
+
+* Wed Nov 06 2019 David Vasquez <davidva AT tutanota DOT com> - 2.2-10.git176ca0f
+- Updated to current commit
 
 * Sat Oct 19 2019 David Vasquez <davidva AT tutanota DOT com> - 2.2-9.gitcfb302b
 - Migrated to python3
