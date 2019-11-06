@@ -50,6 +50,10 @@ Flowblade provides powerful tools to mix and filter video and audio.
 %setup -n %{name}-%{commit0} 
 #patch0 -p1
 pushd flowblade-trunk
+
+# Fix modules path
+sed -i "s|/usr/share/flowblade/Flowblade|%{python3_sitelib}/Flowblade|g" flowblade
+
 # patching flowblade, and avoid message 'small screen'
 sed -i 's/1151/1024/g' Flowblade/app.py
 
@@ -60,8 +64,6 @@ sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python3@g' Flowblade/launch/*
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
 popd
 
-# Fix modules path
-sed -i "s|/usr/share/flowblade/Flowblade|%{python3_sitelib}/Flowblade|g" flowblade
 
 %build 
 pushd flowblade-trunk
