@@ -132,7 +132,7 @@ fi
 
 %changelog
 
-* Fri Dec 13 2019 David Vasquez <davidva AT tutanota DOT com> - 2.4.0.1-7.git6a18025
+* Thu Feb 20 2020 David Vasquez <davidva AT tutanota DOT com> - 2.4.0.1-7.git6a18025
 - Updated to 2.4.0.1
 
 * Fri Dec 13 2019 David Vasquez <davidva AT tutanota DOT com> - 2.4-7.gitbc1d70e
