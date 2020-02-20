@@ -1,9 +1,9 @@
-%global commit0 bc1d70e49412112a6371941678686d6c10221c3e
+%global commit0 6a180252261b94b72959ac8fa562c916c99ecfaf
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
-Version:        2.4
+Version:        2.4.0.1
 Release:	7%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -131,6 +131,9 @@ fi
 
 
 %changelog
+
+* Fri Dec 13 2019 David Vasquez <davidva AT tutanota DOT com> - 2.4.0.1-7.git6a18025
+- Updated to 2.4.0.1
 
 * Fri Dec 13 2019 David Vasquez <davidva AT tutanota DOT com> - 2.4-7.gitbc1d70e
 - Updated to 2.4
