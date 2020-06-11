@@ -15,13 +15,13 @@
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 #
 
-%global commit0 6a180252261b94b72959ac8fa562c916c99ecfaf
+%global commit0 9cf050b9acbd1d27d3081be9ee26e556c9b57e25
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
 Version:        2.4.0.1
-Release:	7%{?gver}%{?dist}
+Release:	8%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -29,6 +29,7 @@ Source0:	https://github.com/jliljebl/flowblade/archive/%{commit0}.tar.gz#/%{name
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
+BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-setuptools
 BuildRequires:	gettext
 Requires:       ffmpeg
@@ -82,14 +83,13 @@ sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
 popd
 
 
-%build 
+%build
 pushd flowblade-trunk
-%py3_build
-popd
+python%{python3_version} setup.py build
 
-%install 
+%install
 pushd flowblade-trunk
-%py3_install 
+python%{python3_version} setup.py install --root=%{buildroot} --optimize=1 --skip-build 
 
 # fix permissions
 chmod +x %{buildroot}%{python3_sitelib}/Flowblade/launch/*
@@ -148,6 +148,9 @@ fi
 
 
 %changelog
+
+* Wed Jun 10 2020 David Vasquez <davidva AT tutanota DOT com> - 2.4.0.1-8.git9cf050b
+- Rebuilt for python3.9
 
 * Thu Feb 20 2020 David Vasquez <davidva AT tutanota DOT com> - 2.4.0.1-7.git6a18025
 - Updated to 2.4.0.1
