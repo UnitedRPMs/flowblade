@@ -15,13 +15,13 @@
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 #
 
-%global commit0 9cf050b9acbd1d27d3081be9ee26e556c9b57e25
+%global commit0 ba8baffe39e334cd61315fe05f82daf2ecc03521
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
-Version:        2.4.0.1
-Release:	8%{?gver}%{?dist}
+Version:        2.6
+Release:	7%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -138,16 +138,19 @@ fi
 %doc flowblade-trunk/README
 %license flowblade-trunk/COPYING
 %{_bindir}/flowblade
-%{_datadir}/applications/io.github.jliljebl.Flowblade.desktop
+%{_datadir}/applications/*.desktop
 %{_mandir}/man1/flowblade.1.*
 %{_datadir}/mime/
-%{_datadir}/appdata/io.github.jliljebl.Flowblade.appdata.xml
-%{_datadir}/icons/hicolor/128x128/apps/io.github.jliljebl.Flowblade.png
+%{_datadir}/appdata/*.appdata.xml
+%{_datadir}/icons/hicolor/*/apps/*.png
 %{python3_sitelib}/Flowblade/
 %{python3_sitelib}/flowblade*.egg-info
 
 
 %changelog
+
+* Thu Jul 09 2020 David Vasquez <davidva AT tutanota DOT com> - 2.6-7.gitba8baff
+- Updated to 2.6
 
 * Wed Jun 10 2020 David Vasquez <davidva AT tutanota DOT com> - 2.4.0.1-8.git9cf050b
 - Rebuilt for python3.9
