@@ -15,12 +15,12 @@
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 #
 
-%global commit0 ac8db6d3080fc4e7033b2fb2dfb4d5c543102a44
+%global commit0 0bc953658e17314fddf38c1eeb32314ace3a0f36
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
-Version:        2.6.2
+Version:        2.6.3
 Release:	7%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -148,6 +148,9 @@ fi
 
 
 %changelog
+
+* Wed Nov 18 2020 David Vasquez <davidva AT tutanota DOT com> - 2.6.3-7.git0bc9536
+- Updated to 2.6.3
 
 * Sun Oct 25 2020 David Vasquez <davidva AT tutanota DOT com> - 2.6.2-7.gitac8db6d
 - Updated to 2.6.2
