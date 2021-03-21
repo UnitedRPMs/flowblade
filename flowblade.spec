@@ -1,7 +1,7 @@
 #
 # spec file for package flowblade
 #
-# Copyright (c) 2020 UnitedRPMs.
+# Copyright (c) 2021 UnitedRPMs.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,12 +15,12 @@
 # Please submit bugfixes or comments via https://goo.gl/zqFJft
 #
 
-%global commit0 0bc953658e17314fddf38c1eeb32314ace3a0f36
+%global commit0 afa6bfb8b5069b1b1b31e5d5431fde4016f5bfbc
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 Name:           flowblade
-Version:        2.6.3
+Version:        2.8.0.2
 Release:	7%{?gver}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -141,13 +141,16 @@ fi
 %{_datadir}/applications/*.desktop
 %{_mandir}/man1/flowblade.1.*
 %{_datadir}/mime/
-%{_datadir}/appdata/*.appdata.xml
+%{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{python3_sitelib}/Flowblade/
 %{python3_sitelib}/flowblade*.egg-info
 
 
 %changelog
+
+* Sat Mar 20 2021 David Vasquez <davidva AT tutanota DOT com> - 2.8.0.2-7.gitafa6bfb
+- Updated to 2.8.0.2
 
 * Wed Nov 18 2020 David Vasquez <davidva AT tutanota DOT com> - 2.6.3-7.git0bc9536
 - Updated to 2.6.3
